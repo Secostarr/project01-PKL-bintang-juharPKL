@@ -10,6 +10,7 @@ class Admin extends Authenticatable
 {
     use HasFactory;
     protected $table = 'migration_admin';
+    protected $primaryKey = 'id_admin';
 
     protected $fillable = [
         'username',

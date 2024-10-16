@@ -34,7 +34,6 @@ class AdminLoginController extends Controller
 
         return back()->withErrors(['login_error' => 'Username atau password salah'])->onlyInput('username');
     }
-
     /**
      * Store a newly created resource in storage.
      */
