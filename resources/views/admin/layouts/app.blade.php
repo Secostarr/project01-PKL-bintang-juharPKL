@@ -51,8 +51,8 @@
                 <div class="navbar-nav w-100">
                     <a href="{{ Route('admin.dashboard') }}" class="nav-item nav-link {{ request()->routeIs('admin.dashboard') ? 'active' : '' }}"><i class="fa fa-tachometer-alt me-2"></i>Dashboard</a>
                     <a href="{{ Route('admin.guru') }}" class="nav-item nav-link {{ request()->routeIs('admin.guru') ? 'active' : '' }}"><i class="fa fa-th me-2"></i>Guru</a>
-                    <a href="form.html" class="nav-item nav-link"><i class="fa fa-keyboard me-2"></i>Dudi</a>
-                    <a href="table.html" class="nav-item nav-link"><i class="fa fa-table me-2"></i>Pembimbing</a>
+                    <a href="{{ Route('admin.dudi') }}" class="nav-item nav-link {{ request()->routeIs('admin.dudi') ? 'active' : '' }}"><i class="fa fa-keyboard me-2"></i>Dudi</a>
+                    <a href="{{ Route('admin.pembimbing') }}" class="nav-item nav-link {{ request()->routeIs('admin.pembimbing') ? 'active' : ''}}"><i class="fa fa-table me-2"></i>Pembimbing</a>
                 </div>
         </div>
         </nav>
@@ -159,13 +159,11 @@
             <div class="bg-light rounded-top p-4">
                 <div class="row">
                     <div class="col-12 col-sm-6 text-center text-sm-start">
-                        &copy; <a href="#">Your Site Name</a>, All Right Reserved.
+                        &copy; <a href="#">JURHAR - Secostarr</a>, All Right Reserved.
                     </div>
                     <div class="col-12 col-sm-6 text-center text-sm-end">
                         <!--/*** This template is free as long as you keep the footer author’s credit link/attribution link/backlink. If you'd like to use the template without the footer author’s credit link/attribution link/backlink, you can purchase the Credit Removal License from "https://htmlcodex.com/credit-removal". Thank you for your support. ***/-->
-                        Designed By <a href="https://htmlcodex.com">HTML Codex</a>
-                        </br>
-                        Distributed By <a class="border-bottom" href="https://themewagon.com" target="_blank">ThemeWagon</a>
+                        Designed By <a href="https://github.com/Secostarr/project01-PKL-bintang-juharPKL.git">Secostarr</a>
                     </div>
                 </div>
             </div>

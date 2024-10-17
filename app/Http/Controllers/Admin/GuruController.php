@@ -3,8 +3,11 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Models\Admin\Guru;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Storage;
 
 class GuruController extends Controller
 {
@@ -13,8 +16,9 @@ class GuruController extends Controller
      */
     public function guru()
     {
+        $gurus = Guru::all();
         $admin = Auth::guard('admin')->user();
-        return view('admin.guru', compact('admin'));
+        return view('admin.guru', compact('admin', 'gurus'));
     }
 
     /**
@@ -22,7 +26,7 @@ class GuruController extends Controller
      */
     public function create()
     {
-        //
+        return view('admin.tambah_guru');
     }
 
     /**
@@ -30,7 +34,46 @@ class GuruController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $request->validate([
+            'nip' => 'required|unique:migration_guru,nip|digits:18',
+            'email' => 'required|email|unique:migration_guru,email',
+            'password' => 'required|min:8',
+            'nama_guru' => 'required',
+            'foto' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
+        ]);
+
+        $foto = null;
+
+        if ($request->hasFile('foto')) {
+            $uniqueFile = uniqid() . '_' . $request->file('foto')->getClientOriginalName();
+
+            $foto = $request->file('foto')->storeAs('foto_guru', $uniqueFile, 'public');
+        }
+
+        Guru::create([
+            'nip' => $request->nip,
+            'email' => $request->email,
+            'password' => Hash::make($request->password),
+            'nama_guru' => $request->nama_guru,
+            'foto' => $foto,
+        ]);
+
+        return redirect()->route('admin.guru')->with('success', 'Data Guru Berhasil Di Tambah.');
+    }
+
+    public function delete(Request $request, $id) 
+    {
+        $guru = Guru::find($id);
+
+        $foto = 'public/foto_guru' . $guru->foto;
+
+        if (Storage::exists($foto)) {
+            Storage::delete($foto);
+        }
+
+        $guru->delete();
+
+        return redirect()->route('admin.guru')-with('success', 'Data Guru Berhasil Di Hapus');
     }
 
     /**
