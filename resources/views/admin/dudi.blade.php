@@ -3,39 +3,56 @@
 @section('content')
 
 <div class="mb-3">
-    <a href="#" class="btn btn-outline-primary shadow-sm">
+    <a href="{{ Route('admin.dudi.create') }}" class="btn btn-outline-primary shadow-sm">
         <i class="bi bi-plus"></i> Tambah Data
     </a>
 </div>
 
-<div class="table-responsive">
-    <table class="table table-striped table-hover">
-        <thead class="thead-light">
-            <tr>
-                <th>No</th>
-                <th>Nama Dudi</th>
-                <th>Alamat Dudi</th>
-                <th>Aksi</th>
-            </tr>
-        </thead>
-        <tbody>
-            <td>1</td>
-            <td>CV Woka Project Mandiri</td>
-            <td>24</td>
-            <td class="d-flex gap-2">
-                <form action="#" method="">
-                    @csrf
-                    <button class="btn btn-sm btn-outline-danger shadow-sm">
-                        <i class="fas fa-trash"></i> Hapus
-                    </button>
-                </form>
-                <a href="#" class="btn btn-sm btn-outline-warning shadow-sm">
-                    <i class="fas fa-edit"></i> Edit
-                </a>
-            </td>
-            </tr>
-        </tbody>
-    </table>
+<div class="row g-4">
+    <div class="bg-light rounded h-100 p-4">
+        @if(session('success'))
+        <div class="alert alert-succes">
+            {{ session('success') }}
+        </div>
+        @endif
+        <h6 class="mb-4">Data Guru</h6>
+        <div class="table-responsive">
+            <table class="table" id="guru">
+                <thead>
+                    <tr>
+                        <th scope="col">No</th>
+                        <th scope="col">Nama Dudi</th>
+                        <th scope="col">Alamat Dudi</th>
+                        <th scope="col">Action</th>
+                    </tr>
+                </thead>
+                <tbody>
+                @foreach ($dudis as $dudi)
+                    <tr>
+                        <th scope="row">{{ $loop->iteration }}</th>
+                        <td>{{ $dudi->nama_dudi }}</td>
+                        <td>{{ $dudi->alamat }}</td>
+                        <td class="d-flex">
+                            <a href="{{ Route('admin.dudi.edit', $dudi->id_dudi) }}" class="btn btn-outline-warning shadow-sm">
+                                <i class="fas fa-edit"></i> Edit
+                            </a>
+
+                            <a href="{{ Route('admin.dudi.delete', $dudi->id_dudi) }}" onclick="return confirm('Yakin Ingin Hapus Data Ini?')" class="btn btn-outline-danger shadow-sm ms-1">
+                                <i class="fas fa-trash"></i> Hapus
+                            </a>
+                        </td>
+                    </tr>
+                    @endforeach
+                </tbody>
+            </table>
+        </div>
+    </div>
 </div>
+
+<script>
+    $(document).ready(function() {
+        $('#guru').DataTable();
+    });
+</script>
 
 @endsection

@@ -47,7 +47,8 @@ class GuruController extends Controller
         if ($request->hasFile('foto')) {
             $uniqueFile = uniqid() . '_' . $request->file('foto')->getClientOriginalName();
 
-            $foto = $request->file('foto')->storeAs('foto_guru', $uniqueFile, 'public');
+            $request->file('foto')->storeAs('foto_guru', $uniqueFile, 'public');
+            $foto = 'foto_guru/' . $uniqueFile;
         }
 
         Guru::create([
@@ -61,35 +62,29 @@ class GuruController extends Controller
         return redirect()->route('admin.guru')->with('success', 'Data Guru Berhasil Di Tambah.');
     }
 
-    public function delete(Request $request, $id) 
+    public function delete(Request $request, $id)
     {
         $guru = Guru::find($id);
 
-        $foto = 'public/foto_guru' . $guru->foto;
+        $foto = $guru->foto;
 
-        if (Storage::exists($foto)) {
-            Storage::delete($foto);
+        if ($guru->foto) {
+            $foto = $guru->foto;
+
+            if (Storage::disk('public')->exists($foto)) {
+                Storage::disk('public')->delete($foto);
+            }
         }
 
         $guru->delete();
 
-        return redirect()->route('admin.guru')-with('success', 'Data Guru Berhasil Di Hapus');
+        return redirect()->route('admin.guru')->with('success', 'Data Guru Berhasil Di Hapus');
     }
 
-    /**
-     * Display the specified resource.
-     */
-    public function show(string $id)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     */
     public function edit(string $id)
     {
-        //
+        $guru = Guru::find($id);
+        return view('admin.edit_guru', compact('guru'));
     }
 
     /**
@@ -97,7 +92,36 @@ class GuruController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        //
+        
+        $guru = Guru::find($id);
+        $request->validate([
+            'nip' => 'required|digits:18|unique:migration_guru,nip,' .$guru->id_guru . ',id_guru',
+            'email' => 'required|email|unique:migration_guru,email,' .$guru->id_guru . ',id_guru',
+            'password' => 'nullable|min:8',
+            'nama_guru' => 'required',
+            'foto' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
+        ]);
+
+        $foto = $guru->foto;
+        if ($request->hasFile('foto')) {
+            if ($foto) {
+                Storage::disk('public')->delete($foto);
+            }
+            $uniqueFile = uniqid(). '_' . $request->file('foto')->getClientOriginalName();
+            $request->file('foto')->storeAs('foto_guru', $uniqueFile, 'public');
+            $foto = 'foto_guru/' . $uniqueFile;
+        }
+
+        $guru->update([
+            'nip' => $request->nip,
+            'email' => $request->email,
+            'password' => $request->filled('password') ? Hash::make($request->password) : $guru->password,
+            'nama_guru' => $request->nama_guru,
+            'foto' => $foto,
+        ]);
+
+        return redirect()->route('admin.guru')->with('success', 'Data Guru Berhasil Di Update.');
+
     }
 
     /**
