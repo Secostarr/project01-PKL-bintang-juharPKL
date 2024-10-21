@@ -15,7 +15,7 @@
             {{ session('success') }}
         </div>
         @endif
-        <h6 class="mb-4">Data Guru</h6>
+        <h2 class="mb-4">Data Dudi</h2>
         <div class="table-responsive">
             <table class="table" id="guru">
                 <thead>

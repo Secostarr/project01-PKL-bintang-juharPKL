@@ -15,4 +15,9 @@ class Dudi extends Model
         'nama_dudi',
         'alamat',
     ];
+
+    public function PembimbingDudi()
+    {
+        return $this->belongsTo(Pembimbing::class, 'id_dudi', 'id_dudi');   
+    }
 }

@@ -3,7 +3,7 @@
 @section('content')
 
 <div class="mb-3">
-    <a href="" class="btn btn-outline-primary shadow-sm">
+    <a href="{{ Route('admin.pembimbing.create') }}" class="btn btn-outline-primary shadow-sm">
         <i class="bi bi-plus"></i> Tambah Data
     </a>
 </div>
@@ -15,38 +15,36 @@
             {{ session('success') }}
         </div>
         @endif
-        <h6 class="mb-4">Tambah Guru</h6>
-        <h6 class="mb-4">Data Guru</h6>
+        <h2 class="mb-4">Data Pembimbing</h2>
         <div class="table-responsive">
             <table class="table" id="guru">
                 <thead>
                     <tr>
                         <th scope="col">No</th>
+                        <th scope="col">Nama Guru</th>
                         <th scope="col">Nama Dudi</th>
-                        <th scope="col">Alamat Dudi</th>
                         <th scope="col">Action</th>
                     </tr>
                 </thead>
                 <tbody>
-
+                    @foreach ($pembimbings as $pembimbing)
                     <tr>
-                        <th scope="row">#</th>
-                        <td>#</td>
-                        <td>#</td>
+                        <th scope="row">{{ $loop->iteration }}</th>
+                        <td>{{ $pembimbing->guru->nama_guru }}</td>
+                        <td>{{ $pembimbing->dudi->nama_dudi }}</td>
                         <td class="d-flex">
-                            <a href="#" class="btn btn-outline-warning shadow-sm">
+                            <a href="#" class="btn btn-outline-success shadow-sm">
+                                <i class="bi bi-person-bounding-box"></i> Siswa
+                            </a>
+                            <a href="{{ Route('admin.pembimbing.edit', $pembimbing->id_pembimbing) }}" class="btn btn-outline-warning shadow-sm ms-2">
                                 <i class="fas fa-edit"></i> Edit
                             </a>
-
-                            <form action="" method="post">
-                                @csrf
-                                @method('DELETE')
-                                <button href="" class="btn btn-outline-danger shadow-sm ms-1">
-                                    <i class="fas fa-trash"></i> Hapus
-                                </button>
-                            </form>
+                            <a href="{{ Route('admin.pembimbing.delete', $pembimbing->id_pembimbing) }}" onclick="return confirm('Yakin Ingin Haapus Data Ini?')" class="btn btn-outline-danger shadow-sm ms-2">
+                                <i class="fas fa-trash"></i> Hapus
+                            </a>
                         </td>
                     </tr>
+                    @endforeach
                 </tbody>
             </table>
         </div>
@@ -57,6 +55,24 @@
     $(document).ready(function() {
         $('#guru').DataTable();
     });
-</script>
 
+    function confirmRedirect(event) {
+        event.preventDefault(); // Mencegah link dijalankan langsung
+
+        swal({
+                title: "Apakah kamu yakin?",
+                text: "Kamu akan diarahkan ke halaman lain!",
+                icon: "warning",
+                buttons: true,
+                dangerMode: true,
+            })
+            .then((willGo) => {
+                if (willGo) {
+                    window.location.href = event.target.href; // Redirect ke link asli
+                } else {
+                    swal("Tindakan dibatalkan!");
+                }
+            });
+    }
+</script>
 @endsection
