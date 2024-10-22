@@ -11,7 +11,7 @@
 <div class="row g-4">
     <div class="bg-light rounded h-100 p-4">
         @if(session('success'))
-        <div class="alert alert-succes">
+        <div class="alert alert-success">
             {{ session('success') }}
         </div>
         @endif
@@ -51,7 +51,7 @@
 
 <script>
     $(document).ready(function() {
-        $('#guru').DataTable();
+        $('#dudi').DataTable();
     });
 </script>
 

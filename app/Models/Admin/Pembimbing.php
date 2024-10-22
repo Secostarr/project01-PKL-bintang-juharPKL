@@ -7,6 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class Pembimbing extends Model
 {
+
     use HasFactory;
     protected $table = 'migration_pembimbing';
     protected $primaryKey = 'id_pembimbing';
@@ -25,4 +26,10 @@ class Pembimbing extends Model
     {
         return $this->hasOne(Dudi::class, 'id_dudi', 'id_dudi');
     }
+
+    public function siswa()
+    {
+        return $this->hasMany(Siswa::class, 'id_pembimbing', 'id_pembimbing');
+    }
+    
 }

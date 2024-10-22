@@ -1,9 +1,30 @@
 @extends('admin.layouts.app')
-@section('title', 'Pembimbing')
+@section('title', 'Siswa')
 @section('content')
 
+@if($siswa)
+<div class="container-fluid pt-4 px-1">
+    <div class="row bg-light rounded align-items-center mx-0">
+        <div class="col-md-4 p-3">
+            <table>
+                <tr>
+                    <td width="100">Pembimbing</td>
+                    <td width="10">:</td>
+                    <td>{{ $siswa->pembimbingSiswa->guru->nama_guru }}</td>
+                </tr>
+                <tr>
+                    <td width="100">DUDI</td>
+                    <td width="10">:</td>
+                    <td>{{ $siswa->pembimbingSiswa->dudi->nama_dudi }}</td>
+                </tr>
+            </table>
+        </div>
+    </div>
+</div>
+<br>
+@endif
 <div class="mb-3">
-    <a href="{{ Route('admin.pembimbing.create') }}" class="btn btn-outline-primary shadow-sm">
+    <a href="{{ Route('admin.pembimbing.siswa.create', $id) }}" class="btn btn-outline-primary shadow-sm">
         <i class="bi bi-plus"></i> Tambah Data
     </a>
 </div>
@@ -15,31 +36,32 @@
             {{ session('success') }}
         </div>
         @endif
-        <h2 class="mb-4">Data Pembimbing</h2>
+        <h2 class="mb-4">Data Siswa </h2>
         <div class="table-responsive">
-            <table class="table" id="guru">
+            <table class="table" id="siswa">
                 <thead>
                     <tr>
                         <th scope="col">No</th>
-                        <th scope="col">Nama Guru</th>
-                        <th scope="col">Nama Dudi</th>
+                        <th scope="col">NISN</th>
+                        <th scope="col">Nama Siswa</th>
+                        <th scope="col">Foto</th>
                         <th scope="col">Action</th>
                     </tr>
                 </thead>
                 <tbody>
-                    @foreach ($pembimbings as $pembimbing)
+                    @foreach ($siswas as $siswa)
                     <tr>
                         <th scope="row">{{ $loop->iteration }}</th>
-                        <td>{{ $pembimbing->guru->nama_guru }}</td>
-                        <td>{{ $pembimbing->dudi->nama_dudi }}</td>
+                        <td>{{ $siswa->nisn }}</td>
+                        <td>{{ $siswa->nama_siswa }}</td>
+                        <td>
+                            <img src="{{ asset('storage/' . $siswa->foto) }}" height="35">
+                        </td>
                         <td class="d-flex">
-                            <a href="{{ Route('admin.pembimbing.siswa', $pembimbing->id_pembimbing) }}" class="btn btn-outline-success shadow-sm">
-                                <i class="bi bi-person-bounding-box"></i> Siswa
-                            </a>
-                            <a href="{{ Route('admin.pembimbing.edit', $pembimbing->id_pembimbing) }}" class="btn btn-outline-warning shadow-sm ms-2">
+                            <a href="" class="btn btn-outline-warning shadow-sm">
                                 <i class="fas fa-edit"></i> Edit
                             </a>
-                            <a href="{{ Route('admin.pembimbing.delete', $pembimbing->id_pembimbing) }}" onclick="return confirm('Yakin Ingin Haapus Data Ini?')" class="btn btn-outline-danger shadow-sm ms-2">
+                            <a href="" onclick="return confirm('Yakin Ingin Haapus Data Ini?')" class="btn btn-outline-danger shadow-sm ms-1">
                                 <i class="fas fa-trash"></i> Hapus
                             </a>
                         </td>
@@ -53,7 +75,7 @@
 
 <script>
     $(document).ready(function() {
-        $('#pembimbing').DataTable();
+        $('#siswa').DataTable();
     });
 
     function confirmRedirect(event) {
