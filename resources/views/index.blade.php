@@ -64,7 +64,7 @@
                             <h4>Jurnal Harian PKL</h4>
                             <p>Sistem Jurnal Harian PKL Berbasis Website, Silahkan Masuk Untuk Informasi Lebih Lanjut.</p>
                         </div>
-                        <a href="">
+                        <a href="{{ Route('guru.login') }}">
                             <div class="card shadow-sm">
                                 <div class="card-body d-flex align-items-center">
                                     <img src="{{ asset('img/guru.png') }}" alt="LOGO GURU" class="" height="70">

@@ -58,10 +58,10 @@
                             <img src="{{ asset('storage/' . $siswa->foto) }}" height="35">
                         </td>
                         <td class="d-flex">
-                            <a href="" class="btn btn-outline-warning shadow-sm">
+                            <a href="{{ Route('admin.pembimbing.siswa.edit', ['id' => $id, 'id_siswa' => $siswa->id_siswa]) }}" class="btn btn-outline-warning shadow-sm">
                                 <i class="fas fa-edit"></i> Edit
                             </a>
-                            <a href="" onclick="return confirm('Yakin Ingin Haapus Data Ini?')" class="btn btn-outline-danger shadow-sm ms-1">
+                            <a href="{{ Route('admin.pembimbing.siswa.delete', ['id' => $id, 'id_siswa' => $siswa->id_siswa]) }}" onclick="return confirm('Yakin Ingin Haapus Data Ini?')" class="btn btn-outline-danger shadow-sm ms-1">
                                 <i class="fas fa-trash"></i> Hapus
                             </a>
                         </td>
