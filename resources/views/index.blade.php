@@ -76,7 +76,7 @@
                             </div>
                         </a>
                         <br>
-                        <a href="">
+                        <a href="{{ Route('siswa.login') }}">
                             <div class="card shadow-sm">
                                 <div class="card-body d-flex align-items-center">
                                     <img src="{{ asset('img/siswa.png') }}" alt="LOGO SISWA" class="" height="70">

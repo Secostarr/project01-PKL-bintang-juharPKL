@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Admin\Pembimbing;
 use App\Models\Admin\Siswa;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Storage;
 
@@ -108,4 +109,17 @@ class SiswaController extends Controller
 
     }
 
+    public function dashboard()
+    {
+        $siswa = Auth::guard('siswa')->user();
+        return view('siswa.dashboard', compact('siswa'));
+    }
+
+    public function logout(Request $request)
+    {
+        Auth::guard('siswa')->logout();
+        $request->session()->invalidate();
+        $request->session()->regenerateToken();
+        return redirect()->route('index');
+    }
 }

@@ -45,6 +45,16 @@ return [
             'driver' => 'session',
             'provider' => 'admins',
         ],
+
+        'guru' => [
+            'driver' => 'session',
+            'provider' => 'gurus',
+        ],
+
+        'siswa' => [
+            'driver' => 'session',
+            'provider' => 'siswas',
+        ],
     ],
 
     /*
@@ -73,6 +83,16 @@ return [
         'admins' => [
             'driver' => 'eloquent',
             'model' => env('AUTH_MODEL', App\Models\Admin\Admin::class),
+        ],
+
+        'gurus' => [
+            'driver' => 'eloquent',
+            'model' => env('AUTH_MODEL', App\Models\Admin\Guru::class),
+        ],
+
+        'siswas' => [
+            'driver' => 'eloquent',
+            'model' => env('AUTH_MODEL', App\Models\Admin\Siswa::class),
         ],
 
         // 'users' => [
