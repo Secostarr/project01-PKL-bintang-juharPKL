@@ -3,6 +3,7 @@
 use App\Http\Controllers\Admin\AdminController;
 use App\Http\Controllers\Admin\DudiController;
 use App\Http\Controllers\Admin\GuruController;
+use App\Http\Controllers\Admin\KegiatanController;
 use App\Http\Controllers\Admin\PembimbingController;
 use App\Http\Controllers\Admin\SiswaController;
 use App\Http\Controllers\Auth\AdminLoginController;
@@ -35,7 +36,6 @@ Route::middleware(['admin'])->group(function () {
     Route::get('/admin/dashboard', [AdminController::class, 'dashboard'])->name('admin.dashboard');
     Route::get('/admin/profile', [AdminController::class, 'profile'])->name('admin.profile');
     Route::put('/admin/profile/update', [AdminController::class, 'update'])->name('admin.profile.update');
-
 
     // GURU
     Route::get('/admin/guru', [GuruController::class, 'guru'])->name('admin.guru');
@@ -75,13 +75,13 @@ Route::middleware(['guru'])->group(function () {
     Route::get('/guru/dashboard', [GuruController::class, 'dashboard'])->name('guru.dashboard');
     Route::get('/guru/pembimbing', [GuruController::class, 'pembimbing'])->name('guru.pembimbing');
     Route::get('/guru/pembimbing/{id}/siswa', [GuruController::class, 'siswa'])->name('guru.pembimbing.siswa');
-    Route::get('/guru/pembimbing/siswa/kegiatan', [GuruController::class, 'kegiatan'])->name('guru.pembimbing.siswa.kegiatan');
-    Route::get('/guru/pembimbing/siswa/kegiatan/detail', [GuruController::class, 'detail'])->name('guru.pembimbing.siswa.detail');
     Route::get('/guru/profile', [GuruController::class, 'profile'])->name('guru.profile');
     Route::put('/guru/profile/update', [GuruController::class, 'updateGuru'])->name('guru.profile.update');
+    Route::get('/guru/pembimbing/{id}/siswa/kegiatan/{id_siswa}', [KegiatanController::class, 'kegiatan'])->name('guru.pembimbing.siswa.kegiatan');
+    Route::get('/guru/pembimbing/{id}/siswa/{id_siswa}/kegiatan/{id_kegiatan}', [KegiatanController::class, 'detail'])->name('guru.pembimbing.siswa.detail');
 });
 
-Route::group(['middleware' => ['auth:siswa']], function() {
+Route::middleware(['siswa'])->group(function () {
     Route::get('/siswa/logout', [SiswaController::class, 'logout'])->name('siswa.logout');
     Route::get('/siswa/dashboard', [SiswaController::class, 'dashboard'])->name('siswa.dashboard');
 });

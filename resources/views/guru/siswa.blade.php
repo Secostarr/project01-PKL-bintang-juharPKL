@@ -2,6 +2,12 @@
                     @section('title', 'Siswa')
                     @section('content')
 
+                    @if ($errors->has('access'))
+                    <div class="alert alert-danger">
+                        {{ $errors->first('access') }}
+                    </div>
+                    @endif
+
                     @if($siswa)
                     <div class="container-fluid pt-4 px-1">
                         <div class="row bg-light rounded align-items-center mx-0">
@@ -25,9 +31,9 @@
                     @endif
                     <div class="row g-4">
                         <div class="bg-light rounded h-100 p-4">
-                            @if(session('success'))
-                            <div class="alert alert-success">
-                                {{ session('success') }}
+                            @if(session('access'))
+                            <div class="alert alert-danger">
+                                {{ session('access') }}
                             </div>
                             @endif
                             <h2 class="mb-4">Data Siswa </h2>
@@ -52,7 +58,7 @@
                                                 <img src="{{ asset('storage/' . $siswa->foto) }}" height="35">
                                             </td>
                                             <td class="d-flex">
-                                                <a href="{{ Route('guru.pembimbing.siswa.kegiatan') }}" class="btn btn-outline-info shadow-sm">
+                                                <a href="{{ Route('guru.pembimbing.siswa.kegiatan', ['id' => $id, 'id_siswa' => $siswa->id_siswa]) }}" class="btn btn-outline-info shadow-sm">
                                                     <i class="bi bi-person-bounding-box"></i> Kegiatan
                                                 </a>
                                             </td>

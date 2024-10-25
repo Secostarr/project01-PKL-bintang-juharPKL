@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Models\Admin\Guru;
+use App\Models\Admin\Kegiatan;
 use App\Models\Admin\Pembimbing;
 use App\Models\Admin\Siswa;
 use Illuminate\Http\Request;
@@ -145,13 +146,21 @@ class GuruController extends Controller
         $guru = Auth::guard('guru')->user();
 
         $pembimbings = Pembimbing::where('id_guru', $guru->id_guru)->get();
+        $kegiatan = Kegiatan::whereIn('id_siswa', $pembimbings->pluck('id'))->get();
 
-        return view('guru.pembimbing', compact('guru', 'pembimbings'));
+        return view('guru.pembimbing', compact('guru', 'pembimbings', 'kegiatan'));
     }
-
 
     public function siswa($id)
     {
+        $loginGuru = Auth::guard('guru')->user()->id_guru;
+        $pembimbing = Pembimbing::find($id);
+
+        if (!$pembimbing || $pembimbing->id_guru !== $loginGuru) 
+        {
+            return back()->withErrors(['access' => 'Anda Tidak Memiliki Akses']);
+        }
+
         $siswas = Siswa::where('id_pembimbing', $id)->get();
         $siswa = Siswa::where('id_pembimbing', $id)->first();
         return view('guru.siswa', compact('siswas', 'siswa', 'id'));
@@ -193,17 +202,5 @@ class GuruController extends Controller
         ]);
 
         return redirect()->back()->with('success', 'Data Anda Berhasil Di Update');
-    }
-
-    public function kegiatan()
-    {
-
-        return view('guru.kegiatan');
-    }
-
-    public function detail()
-    {
-
-        return view('guru.detail');
     }
 }

@@ -2,6 +2,29 @@
 @section('title', 'Kegiatan Siswa')
 @section('content')
 
+@if ($errors->has('access'))
+<div class="alert alert-danger">
+    {{ $errors->first('access') }}
+</div>
+@endif
+
+@if($kegiatan)
+<div class="container-fluid pt-4 px-1">
+    <div class="row bg-light rounded align-items-center mx-0">
+        <div class="col-md-4 p-3">
+            <table>
+                <tr>
+                    <td width="100">Nama SIswa</td>
+                    <td width="10">:</td>
+                    <td>{{ $kegiatan->KegiatanSiswa->nama_siswa }}</td>
+                </tr>
+            </table>
+        </div>
+    </div>
+</div>
+<br>
+@endif
+
 <div class="row g-4">
     <div class="bg-light rounded h-100 p-4">
         @if(session('success'))
@@ -18,25 +41,24 @@
                         <th scope="col">No</th>
                         <th scope="col">Tanggal</th>
                         <th scope="col">Nama Kegiatan</th>
-                        <th scope="col">Foto</th>
                         <th scope="col">Action</th>
                     </tr>
                 </thead>
                 <tbody>
+                    @foreach ($kegiatans as $kegiatan)
                     <tr>
-                        <th scope="row">1</th>
-                        <td></td>
-                        <td></td>
-                        <td>
-                            <img src="" height="35">
-                        </td>
+                        <th scope="row">{{ $loop->iteration }}</th>
+                        <td>{{ $kegiatan->tanggal_kegiatan }}</td>
+                        <td>{{ $kegiatan->nama_kegiatan }}</td>
                         <td class="d-flex">
-                            <a href="{{ Route('guru.pembimbing.siswa.detail') }}" class="btn btn-outline-info shadow-sm">
+                            <a href="{{ route('guru.pembimbing.siswa.detail', ['id' => $id, 'id_siswa' => $kegiatan->id_siswa, 'id_kegiatan' => $kegiatan->id_kegiatan ]) }}"
+                                class="btn btn-outline-info shadow-sm">
                                 <i class="bi bi-person-bounding-box"></i> Detail
                             </a>
+
                         </td>
                     </tr>
-
+                    @endforeach
                 </tbody>
             </table>
         </div>
