@@ -50,8 +50,8 @@
                     </div>
                 </div>
                 <div class="navbar-nav w-100">
-                    <a href="{{ Route('siswa.dashboard') }}" class="nav-item nav-link "><i class="fa fa-tachometer-alt me-2"></i>Dashboard</a>
-                    <a href="" class="nav-item nav-link "><i class="fa fa-table me-2"></i>Pembimbing</a>
+                    <a href="{{ Route('siswa.dashboard') }}" class="nav-item nav-link {{ request()->routeIs('siswa.dashboard*') ? 'active' : '' }}"><i class="fa fa-tachometer-alt me-2"></i>Dashboard</a>
+                    <a href="{{ Route('siswa.Kegiatan') }}" class="nav-item nav-link {{ request()->routeIs('siswa.Kegiatan*') ? 'active' : '' }}"><i class="fa fa-table me-2"></i>Kegiatan</a>
                 </div>
         </div>
         </nav>
@@ -142,7 +142,7 @@
                         <span class="d-none d-lg-inline-flex"></span>
                     </a>
                     <div class="dropdown-menu dropdown-menu-end bg-light border-0 rounded-0 rounded-bottom m-0">
-                        <a href="" class="dropdown-item">My Profile</a>
+                        <a href="{{ Route('siswa.profile') }}" class="dropdown-item">My Profile</a>
                         <a href="{{ Route('siswa.logout') }}" class="dropdown-item">Log Out</a>
                     </div>
                 </div>

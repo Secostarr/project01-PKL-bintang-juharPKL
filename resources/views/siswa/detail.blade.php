@@ -1,7 +1,23 @@
-@extends('guru.layouts.app')
+@extends('siswa.layouts.app')
 @section('title', 'Detail')
 @section('content')
 
+@if($kegiatan)
+<div class="container-fluid pt-4 px-1">
+    <div class="row bg-light rounded align-items-center mx-0">
+        <div class="col-md-4 p-3">
+            <table>
+                <tr>
+                    <td width="100">Nama SIswa</td>
+                    <td width="10">:</td>
+                    <td>{{ $kegiatan->KegiatanSiswa->nama_siswa }}</td>
+                </tr>
+            </table>
+        </div>
+    </div>
+</div>
+<br>
+@endif
 
 <div class="row g-4 justify-content-center">
     <div class="col-12">
@@ -22,15 +38,6 @@
 
             <form action="" method="post" enctype="multipart/form-data">
                 @csrf
-                <div class="mb-3">
-                    <label for="nama_siswa" class="form-label">Nama Siswa</label>
-                    <input type="text" class="form-control" id="nama_siswa" name="nama_siswa" value="{{ $siswa->nama_siswa }}" readonly>
-                    <div class="text-danger">
-                        @error('nama_siswa')
-                        {{ $message }}
-                        @enderror
-                    </div>
-                </div>
                 <div class="mb-3">
                     <label for="tanggal_kegiatan" class="form-label">Tanggal</label>
                     <input type="date" class="form-control" id="tanggal_kegiatan" name="tanggal_kegiatan" value="{{ $kegiatan->tanggal_kegiatan }}" readonly>
@@ -53,7 +60,7 @@
                     <label for="nama_kegiatan" class="form-label">Foto Kegiatan</label>
                     <div class="d-flex align-items-center">
                         <div class="position-relative">
-                            <img class="" src="{{ asset('storage/' . $kegiatan->foto) }}" alt="" style="width: 700px;">
+                            <img class="" src="{{ asset('storage/' . $kegiatan->foto) }}" alt="" style="width: 700px; height: 280px;">
                         </div>
                     </div>
                 </div>
@@ -68,7 +75,7 @@
                 </div>
             </form>
             <div class="d-flex text-center">
-                <a href="{{ Route('guru.pembimbing.siswa.kegiatan', ['id' => $id, 'id_siswa' => $siswa->id_siswa]) }}" class="btn btn-primary">Keluar</a>
+                <a href="{{ Route('siswa.Kegiatan') }}" class="btn btn-primary">Keluar</a>
             </div>
         </div>
     </div>

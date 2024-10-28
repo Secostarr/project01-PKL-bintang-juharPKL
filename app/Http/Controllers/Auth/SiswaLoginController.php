@@ -21,7 +21,7 @@ class SiswaLoginController extends Controller
         ]);
 
         if (Auth::guard('siswa')->attempt($credentials)) {
-            return redirect()->route('siswa.dashboard');
+            return redirect()->route('siswa.dashboard')->with('success', 'Login Berhasil');
         }
 
         return back()->withErrors(['login_error' => 'Username atau password salah'])->onlyInput('nisn');

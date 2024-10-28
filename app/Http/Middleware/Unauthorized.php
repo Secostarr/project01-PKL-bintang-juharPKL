@@ -19,9 +19,10 @@ class Unauthorized
         if (Auth::guard('admin')->check()) {
             return redirect()->route('admin.dashboard');
         } else if (Auth::guard('guru')->check()) {
-            return redirect()->route('guru.dashboard'); // Ubah 'guru.dashboard' sesuai dengan rute dashboard guru Anda
-        } else {
-            
+            return redirect()->route('guru.dashboard');
+        } else if (Auth::guard('siswa')->check()) {
+            return redirect()->route('siswa.dashboard');        
+        }
         return $next($request);
     }
-}}
+}
