@@ -58,7 +58,7 @@
                             </a>
                             <a href="{{ route('siswa.kegiatan.delete', ['id_kegiatan' => $kegiatan->id_kegiatan]) }}" onclick="return confirm('Yakin ingin hapus data ini?')" class="btn btn-outline-danger shadow-sm ms-2">
                                 <i class="fas fa-trash"></i> Hapus
-                            </a>
+                            </a>    
                         </td>
                     </tr>
                     @endforeach

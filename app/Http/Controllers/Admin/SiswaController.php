@@ -131,42 +131,6 @@ class SiswaController extends Controller
         return view('siswa.kegiatan', compact('kegiatans'));
     }
 
-    public function storeKegiatan()
-    {
-        return view('siswa.tambah_kegiatan');
-    }
-
-    public function tambahKegiatan(Request $request)
-    {
-        $request->validate([
-            'tanggal_kegiatan' => 'required',
-            'nama_kegiatan' => 'required',
-            'ringkasan_kegiatan' => 'required',
-            'foto' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
-        ]);
-
-        $foto = null;
-
-        if ($request->hasFile('foto')) {
-            $uniqueFile = uniqid() . '_' . $request->file('foto')->getClientOriginalName();
-            $request->file('foto')->storeAs('foto_kegiatan', $uniqueFile, 'public');
-            $foto = 'foto_kegiatan/' . $uniqueFile;
-        }
-
-
-        $id_siswa = Auth::guard('siswa')->user()->id_siswa;
-
-        Kegiatan::create([
-            'id_siswa' => $id_siswa,
-            'tanggal_kegiatan' => $request->tanggal_kegiatan,
-            'nama_kegiatan' => $request->nama_kegiatan,
-            'ringkasan_kegiatan' => $request->ringkasan_kegiatan,
-            'foto' => $foto,
-        ]);
-
-        return redirect()->route('siswa.Kegiatan')->with('success', 'Kegiatan berhasil ditambahkan.');
-    }
-
     public function deleteKegiatan($id_kegiatan)
     {
         $id_siswa = Auth::guard('siswa')->user()->id_siswa;

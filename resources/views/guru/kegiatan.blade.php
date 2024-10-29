@@ -33,6 +33,39 @@
         </div>
         @endif
         <h2 class="mb-4">Data Kegiatan Siswa </h2>
+        <form action="{{ Route('guru.pembimbing.siswa.kegiatan.cari', ['id' => $id_pembimbing, 'id_siswa' => $id_siswa]) }}" method="GET" class="d-flex align-items-end gap-2 w-50">
+            <div class="mb-3 flex-grow-1">
+                <label for="tanggal_awal" class="form-label">Tanggal Awal :</label>
+                <input type="date" name="tanggal_awal" id="tanggal_awal" class="form-control" value="{{ $tanggalAwal ?? '' }}">
+                <div class="text-danger">
+                    @error('tanggal_awal')
+                    {{ $message }}
+                    @enderror
+                </div>
+            </div>
+
+            <div class="mb-3 flex-grow-1">
+                <label for="tanggal_akhir" class="form-label">Tanggal Akhir :</label>
+                <input type="date" name="tanggal_akhir" id="tanggal_akhir" class="form-control" value="{{ $tanggalAkhir ?? '' }}">
+                <div class="text-danger">
+                    @error('tanggal_akhir')
+                    {{ $message }}
+                    @enderror
+                </div>
+            </div>
+            <div class="d-flex align-items-end mb-3 gap-1">
+                <!-- Tombol Filter dengan ikon pencarian -->
+                <button type="submit" class="btn btn-primary">
+                    <i class="fas fa-search"></i>
+                </button>
+
+                <!-- Tombol Reset -->
+                <a href="{{ Route('guru.pembimbing.siswa.kegiatan', ['id' => $id_pembimbing, 'id_siswa' => $id_siswa]) }}" type="reset" class="btn btn-secondary">
+                    <i class="fas fa-redo"></i>
+                </a>
+            </div>
+        </form>
+
         <div class="table-responsive">
             <table class="table" id="siswa">
                 <thead>
@@ -51,7 +84,7 @@
                         <td>{{ $kegiatan->tanggal_kegiatan }}</td>
                         <td>{{ $kegiatan->nama_kegiatan }}</td>
                         <td class="d-flex">
-                            <a href="{{ route('guru.pembimbing.siswa.detail', ['id' => $id, 'id_siswa' => $kegiatan->id_siswa, 'id_kegiatan' => $kegiatan->id_kegiatan ]) }}"
+                            <a href="{{ route('guru.pembimbing.siswa.detail', ['id' => $id_pembimbing, 'id_siswa' => $kegiatan->id_siswa, 'id_kegiatan' => $kegiatan->id_kegiatan ]) }}"
                                 class="btn btn-outline-info shadow-sm">
                                 <i class="bi bi-person-bounding-box"></i> Detail
                             </a>
