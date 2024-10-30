@@ -83,7 +83,7 @@ class KegiatanController extends Controller
             'tanggal_kegiatan' => 'required',
             'nama_kegiatan' => 'required',
             'ringkasan_kegiatan' => 'required',
-            'foto' => 'required|image|mimes:jpeg,png,jpg,gif|max',
+            'foto' => 'required|image|mimes:jpeg,png,jpg,gif|max:2048',
         ]);
 
         $foto = null;

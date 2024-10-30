@@ -10,7 +10,7 @@
         @endif
         <h2 class="mb-4">Data Yang Di Pembimbing</h2>
         <div class="table-responsive">
-            <table class="table" id="guru">
+            <table class="table" id="pembimbing">
                 <thead>
                     <tr>
                         <th scope="col">No</th>

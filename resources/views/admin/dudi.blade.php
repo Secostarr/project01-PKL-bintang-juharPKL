@@ -17,7 +17,7 @@
         @endif
         <h2 class="mb-4">Data Dudi</h2>
         <div class="table-responsive">
-            <table class="table" id="guru">
+            <table class="table" id="dudi">
                 <thead>
                     <tr>
                         <th scope="col">No</th>

@@ -38,7 +38,7 @@ class GuruController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'nip' => 'unique:migration_guru,nip|digits:18',
+            'nip' => 'nullable|unique:migration_guru,nip|digits:18',
             'email' => 'required|email|unique:migration_guru,email',
             'password' => 'required|min:8',
             'nama_guru' => 'required',
@@ -87,6 +87,9 @@ class GuruController extends Controller
     public function edit(string $id)
     {
         $guru = Guru::find($id);
+        if (!$guru) {
+            return back();
+        }
         return view('admin.edit_guru', compact('guru'));
     }
 

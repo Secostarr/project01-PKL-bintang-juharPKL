@@ -48,6 +48,11 @@
                                 <img id="preview" src="" alt="Hasil Foto Kegiatan" class="img-fluid">
                             </div>
                         </div>
+                        <div class="text-danger">
+                            @error('foto')
+                            {{ $message }}
+                            @enderror
+                        </div>
                     </div>
                 </div>
                 <div class="mb-3">

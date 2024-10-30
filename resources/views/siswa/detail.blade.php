@@ -60,7 +60,7 @@
                     <label for="nama_kegiatan" class="form-label">Foto Kegiatan</label>
                     <div class="d-flex align-items-center">
                         <div class="position-relative">
-                            <img class="" src="{{ asset('storage/' . $kegiatan->foto) }}" alt="" style="width: 700px; height: 280px;">
+                            <img class="" src="{{ asset('storage/' . $kegiatan->foto) }}" alt="" style="width: 700px;">
                         </div>
                     </div>
                 </div>
